@@ -1,0 +1,38 @@
+.list-of-tasks  {
+	list-style:none;
+	padding:0;
+
+	li {
+		margin:0 0 0 0;
+		overflow:hidden;
+		border-bottom:1px solid #BDBDBD;
+
+		&:last-child {
+			border-bottom:none;
+		}
+
+		p {
+			margin:10px 0 0 0;
+			padding:10px 0;
+
+		}
+	}
+}
+
+.list-of-done-tasks {
+	@extend .list-of-tasks;
+
+	li {
+		p {
+			margin:10px 0 0 0;
+			padding:10px 0;
+			text-decoration: line-through;
+		}
+	}
+}
+
+.controls {
+	button {
+		margin-left:10px;
+	}
+}
