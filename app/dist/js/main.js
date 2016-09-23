@@ -185,8 +185,6 @@ var app = firebase.initializeApp(config);
 var Tasks = React.createClass({displayName: "Tasks",
 
 	loadData : function(){
-		// var ref = new Firebase('https://sprint-8b2da.firebaseio.com/tasks');
-
 		app.database().ref('/tasks').on('value',function(snap){
 			var items = [],
 			doneItems = [];
@@ -226,26 +224,11 @@ var Tasks = React.createClass({displayName: "Tasks",
 	},
 
 	onNewItem: function(newItem){
-		// newItem.key = this.state.items.length +1;
-		// var newItems = this.state.items.concat([newItem]);
-		// this.setState({
-		// 	items : newItems
-		// });
-		// var ref = new Firebase('https://sprint-8b2da.firebaseio.com/tasks');
 		app.database().ref('/tasks').push(newItem);
-
 	},
 
 	deleteItem : function(key){
-		// var newItems = this.state.items.filter(function( obj ) {
-		//     return obj.key !== key;
-		// });
-
-		// this.setState({
-		// 	items : newItems
-		// });
 		app.database().ref('/tasks').child(key).remove();
-
 	},
 
 	doneItem: function(key){
@@ -258,21 +241,7 @@ var Tasks = React.createClass({displayName: "Tasks",
 		newDoneItem.description = doneItem.description;
 		newDoneItem.status = 'done';
 
-
 		app.database().ref('/tasks').child(key).update(newDoneItem);
-
-		// var doneItems = this.state.doneItems.concat(newDoneItem);
-
-
-		// var newItems = this.state.items.filter(function( obj ) {
-		//     return obj.key !== key;
-		// });
-
-		// this.setState({
-		// 	items : newItems,
-		// 	doneItems : doneItems
-		// });
-
 	},
 
 	undoneItem : function(key){
@@ -287,19 +256,6 @@ var Tasks = React.createClass({displayName: "Tasks",
 		newUndoneItem.status = 'todo';
 
 		app.database().ref('/tasks').child(key).update(newUndoneItem);
-
-		// var newItems = this.state.items.concat(newItem);
-
-
-		// var doneItems = this.state.doneItems.filter(function( obj ) {
-		//     return obj.key !== key;
-		// });
-
-
-		// this.setState({
-			// items : newItems,
-			// doneItems : doneItems
-		// });
 	},
 
 	render: function() {
