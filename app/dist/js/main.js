@@ -170,7 +170,8 @@ var React = require('react'),
 	TaskForm = require('./taskForm'),
 	TaskList = require('./taskList'),
 	DoneTaskList = require('./doneTaskList'),
-	firebase = require('firebase');
+	firebase = require('firebase'),
+	Cookie = require('../helpers/CookieHelper');
 
 var config = {
 	    apiKey: "AIzaSyDGT07zHFpV1N9bCwuY75yGQRT77L7VDLA",
@@ -185,6 +186,8 @@ var app = firebase.initializeApp(config);
 var Tasks = React.createClass({displayName: "Tasks",
 
 	loadData : function(){
+		var username = Cookie.get().username;
+
 		app.database().ref('/tasks').on('value',function(snap){
 			var items = [],
 			doneItems = [];
@@ -194,11 +197,13 @@ var Tasks = React.createClass({displayName: "Tasks",
 				var item = itemSnap.val();
 				item.key = itemSnap.getKey();
 
-				if(item.status === 'todo'){
-					items.push(item);
-				}
-				else {
-					doneItems.push(item);
+				if(item.owner === username) {
+					if (item.status === 'todo') {
+						items.push(item);
+					}
+					else {
+						doneItems.push(item);
+					}
 				}
 			});
 
@@ -287,7 +292,7 @@ var Tasks = React.createClass({displayName: "Tasks",
 
 module.exports = Tasks;
 
-},{"./doneTaskList":1,"./taskForm":2,"./taskList":4,"firebase":36,"react":183}],6:[function(require,module,exports){
+},{"../helpers/CookieHelper":7,"./doneTaskList":1,"./taskForm":2,"./taskList":4,"firebase":36,"react":183}],6:[function(require,module,exports){
 /** @jsx React.DOM **/
     	
 var React = require('react'),

@@ -4,7 +4,8 @@ var React = require('react'),
 	TaskForm = require('./taskForm'),
 	TaskList = require('./taskList'),
 	DoneTaskList = require('./doneTaskList'),
-	firebase = require('firebase');
+	firebase = require('firebase'),
+	Cookie = require('../helpers/CookieHelper');
 
 var config = {
 	    apiKey: "AIzaSyDGT07zHFpV1N9bCwuY75yGQRT77L7VDLA",
@@ -19,6 +20,8 @@ var app = firebase.initializeApp(config);
 var Tasks = React.createClass({
 
 	loadData : function(){
+		var username = Cookie.get().username;
+
 		app.database().ref('/tasks').on('value',function(snap){
 			var items = [],
 			doneItems = [];
@@ -28,11 +31,13 @@ var Tasks = React.createClass({
 				var item = itemSnap.val();
 				item.key = itemSnap.getKey();
 
-				if(item.status === 'todo'){
-					items.push(item);
-				}
-				else {
-					doneItems.push(item);
+				if(item.owner === username) {
+					if (item.status === 'todo') {
+						items.push(item);
+					}
+					else {
+						doneItems.push(item);
+					}
 				}
 			});
 
