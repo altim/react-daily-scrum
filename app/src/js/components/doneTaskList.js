@@ -9,7 +9,7 @@ var DoneTaskList = React.createClass({
 
 	render: function() {
 		var taskItems = this.props.items.map(function(item){
-			return <TaskItem undoneItem={this.props.onUndoneItem} key={item.key} keyValue={item.key} desc={item.description} isDone={true}/>
+			return <TaskItem undoneItem={this.props.onUndoneItem} deleteItem={this.props.onDeleteItem} key={item.key} keyValue={item.key} desc={item.description} isDone={true}/>
 		}.bind(this));
 
 		return (

@@ -10,7 +10,7 @@ var DoneTaskList = React.createClass({displayName: "DoneTaskList",
 
 	render: function() {
 		var taskItems = this.props.items.map(function(item){
-			return React.createElement(TaskItem, {undoneItem: this.props.onUndoneItem, key: item.key, keyValue: item.key, desc: item.description, isDone: true})
+			return React.createElement(TaskItem, {undoneItem: this.props.onUndoneItem, deleteItem: this.props.onDeleteItem, key: item.key, keyValue: item.key, desc: item.description, isDone: true})
 		}.bind(this));
 
 		return (
@@ -103,7 +103,7 @@ var TaskItem = React.createClass({displayName: "TaskItem",
 	render: function() {
 		if(this.props.isDone){
 			var itemStyle = { 'display' : 'none'};
-			var itemStyle2 = { 'display' : 'block'};
+			var itemStyle2 = { 'display' : 'inline-block'};
 		}
 		else {
 			var itemStyle2 = { 'display' : 'none'};
@@ -118,7 +118,7 @@ var TaskItem = React.createClass({displayName: "TaskItem",
 					React.createElement("div", {className: "pull-right", role: "group", "aria-label": ""}, 
 						React.createElement("button", {className: "btn btn-primary btn-raised btn-sm", onClick: this.handleDone, style: itemStyle}, "Done"), 
 						React.createElement("button", {className: "btn btn-default btn-raised btn-sm", onClick: this.handleUndone, style: itemStyle2}, "Undone"), 
-						React.createElement("button", {className: "btn btn-danger btn-raised btn-sm", onClick: this.handleDelete, style: itemStyle}, "Delete")
+						React.createElement("button", {className: "btn btn-danger btn-raised btn-sm", onClick: this.handleDelete}, "Delete")
 					)
 				)
 					
@@ -280,7 +280,7 @@ var Tasks = React.createClass({displayName: "Tasks",
 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("hr", null), 
-					React.createElement(DoneTaskList, {items: this.state.doneItems, onUndoneItem: this.undoneItem})
+					React.createElement(DoneTaskList, {items: this.state.doneItems, onDeleteItem: this.deleteItem, onUndoneItem: this.undoneItem})
 				)
 
 			)

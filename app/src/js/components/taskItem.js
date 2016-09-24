@@ -25,7 +25,7 @@ var TaskItem = React.createClass({
 	render: function() {
 		if(this.props.isDone){
 			var itemStyle = { 'display' : 'none'};
-			var itemStyle2 = { 'display' : 'block'};
+			var itemStyle2 = { 'display' : 'inline-block'};
 		}
 		else {
 			var itemStyle2 = { 'display' : 'none'};
@@ -40,7 +40,7 @@ var TaskItem = React.createClass({
 					<div className="pull-right" role="group" aria-label="">
 						<button className="btn btn-primary btn-raised btn-sm" onClick={this.handleDone} style={itemStyle}>Done</button>
 						<button className="btn btn-default btn-raised btn-sm" onClick={this.handleUndone} style={itemStyle2}>Undone</button>
-						<button className="btn btn-danger btn-raised btn-sm" onClick={this.handleDelete} style={itemStyle}>Delete</button>
+						<button className="btn btn-danger btn-raised btn-sm" onClick={this.handleDelete}>Delete</button>
 					</div>
 				</div>
 					

@@ -114,7 +114,7 @@ var Tasks = React.createClass({
 
 				<div className="row">
 					<hr/>
-					<DoneTaskList items={this.state.doneItems} onUndoneItem={this.undoneItem}/>
+					<DoneTaskList items={this.state.doneItems} onDeleteItem={this.deleteItem} onUndoneItem={this.undoneItem}/>
 				</div>
 
 			</div>
