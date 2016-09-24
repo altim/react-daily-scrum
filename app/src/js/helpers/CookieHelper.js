@@ -1,6 +1,6 @@
-/**
- * @module CookieHelper
- */
+
+var $ = require('jquery');
+
 var CookieHelper = function(){
     var _cookie = {};
 
@@ -55,6 +55,29 @@ var CookieHelper = function(){
                 return true;
             }
             return false;
+        },
+
+        validateCookies: function(){
+
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: 'https://wwww.simscale.com/api/v1/auth/validate',
+                headers: {
+                    "Authorization": "Basic " + this.get().uid + ':' + this.get().sid
+                },
+                success: function(data){
+                    if (data && data.valid === false) {
+                        window.location.href = 'https://www.simscale.com/authentication';
+                    }
+                },
+                error: function(err, status){
+                    if (err) {
+                        console.log(err);
+                    }
+                }
+            });
+
         }
     }
 };
